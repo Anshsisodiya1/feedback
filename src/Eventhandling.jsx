@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+// import childComp from "./childComp";
+import ChildCompo from "./ChildCompo";
 
 const EventHandling = () => {
     const [text, setText] = useState("");
     const [dept, setDept] = useState("");
     const [rank, setrank] = useState("");
     const [todo, setTodo] = useState([]);
+    const [toggle, settoggle] = useState(true);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -27,11 +30,14 @@ const EventHandling = () => {
         setText("");
         setDept("");
         setrank("");
+        settoggle(!toggle);
     };
 
     return (
         <>
         <h1>Employee Feedback Form </h1>
+
+        { toggle ? (
         <div>
             Name: <input type="text" name="name" value={text} onChange={handleChange} />
             <br />
@@ -43,14 +49,11 @@ const EventHandling = () => {
             <br />
             <br />
             <button onClick={handleClick}>Submit</button>
-            <ul>
-                {todo.map((item, index) => (
-                    <li key={index}>
-                        {item.text} || {item.dept} || {item.rank}
-                    </li>
-                ))}
-            </ul>
         </div>
+    ):(
+        <ChildCompo todo={todo} handleClick={handleClick}/>
+    )
+}
         </>
     );
 };
